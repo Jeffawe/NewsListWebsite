@@ -4,7 +4,7 @@ import Head from 'next/head'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 
-const news: NextPage = ({ articles }: any) => {
+const news: NextPage = ({ articles, isLoading }: any) => {
     const [theArticles, settheArticles] = useState([])
     const [variable, setvariable] = useState(0)
 
@@ -37,7 +37,7 @@ const news: NextPage = ({ articles }: any) => {
             {!articles.length &&
                 <div>
                     <Navbar />
-                    <ErrorPage />
+                    <ErrorPage isLoading={isLoading} />
                     <Footer />
                 </div>
             }
@@ -52,7 +52,7 @@ const news: NextPage = ({ articles }: any) => {
             {articles == null || undefined &&
                 < div >
                     <Navbar />
-                    <ErrorPage />
+                    <ErrorPage isLoading={isLoading}/>
                     <Footer />
                 </div>
             }

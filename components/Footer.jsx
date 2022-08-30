@@ -9,7 +9,7 @@ const Footer = () => {
         </div>
 
         <div className='md:justify-right justify-center w-full'>
-          <p className='text-white font-light pt-2 md:pt-0 text-sm md:text-base md:text-right text-center'>Powered by <a href='https://newsapi.org/'>NewsAPI</a> And <a href='https://alan.app/'>AlanAI</a></p>
+          <p className='text-white font-light pt-2 md:pt-0 text-sm md:text-base md:text-right text-center'>Powered by <a href='https://mediastack.com/'>MediaStack</a> And <a href='https://alan.app/'>AlanAI</a>. Icon by Icon8</p>
         </div>
     </div>
   )

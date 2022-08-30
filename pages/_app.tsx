@@ -3,6 +3,7 @@ import type { AppProps } from 'next/app'
 import { Layout } from '../components'
 import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
+import axios from 'axios'
 
 export type PropItems = {
   command: any;
@@ -13,6 +14,7 @@ const alanKey = '2dc91ea71963dca449ce8cfa181664292e956eca572e1d8b807a3e2338fdd0d
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [articles, setarticles] = useState([]);
+  const [isLoading, setisLoading] = useState(false)
 
   const router = useRouter()
 
@@ -41,14 +43,24 @@ function MyApp({ Component, pageProps }: AppProps) {
       default:
         urlToUse = `${BaseUrl}&access_key=${API_KEY}`
     }
-    const res = await fetch(urlToUse);
-    const { data } = await res.json()
-    setarticles(data)
-    console.log(data)
+    
+    axios(urlToUse)
+    .then((response) => {
+      const { data } = response.data;
+      setarticles(data)
+      setisLoading(false)
+      console.log(data)
+    })
+    .catch((error) => {
+      console.log("Error Fetching Data");
+      setisLoading(false);
+    })
   }
 
   const onCategoryClick = (event:any, category:String, search:any) => {
     let number = 0
+    setarticles([])
+    setisLoading(true)
     switch(category) {
       case 'Latest News':
         number = 1;
@@ -71,12 +83,15 @@ function MyApp({ Component, pageProps }: AppProps) {
   }
 
   useEffect(() => {
+    setarticles([])
+    setisLoading(true)
     const alanBtn = require("@alan-ai/alan-sdk-web");
     alanBtn({
       key: alanKey,
       onCommand: ({command, articles}:PropItems) => {
           if(command == 'newHeadlines'){
               setarticles(articles);
+              setisLoading(false)
               console.log(articles);
               goToNextPage();
           }
@@ -88,22 +103,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     };
   }, [])
 
-  return <Component {...pageProps} articles={articles} onCategoryClick = {onCategoryClick} getArticle={getArticles}/>
+  return <Component {...pageProps} articles={articles} onCategoryClick = {onCategoryClick} getArticle={getArticles} isLoading={isLoading}/>
 }
 
 export default MyApp
-
-export async function getStaticProps() {
-  // Call an external API endpoint to get posts.
-  // You can use any data fetching library
-  const res = await fetch('https://.../posts')
-  const theArticles = await res.json()
-
-  // By returning { props: { posts } }, the Blog component
-  // will receive `posts` as a prop at build time
-  return {
-    props: {
-      theArticles,
-    },
-  }
-}
