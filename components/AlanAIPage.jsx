@@ -33,7 +33,7 @@ const AlanAIPage = () => {
             <div className=''>
                 <h1 className='text-white p-10 py-14 text-lg md:text-2xl font-bold text-center'>Click on the Microphone at the bottom right to ask a question</h1>
             </div>
-            <div className='grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 lg:grid-rows-1 md:grid-rows-2 grid-rows-4 p-5 gap-5'>
+            <div className='inline-grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 lg:grid-rows-1 md:grid-rows-2 grid-rows-4 p-5 pl-5 pr-10 gap-5'>
                 {Categories.map((category) => (
                     <div key={category.first} className='bg-black opacity-80 p-5 px-8 block rounded-2xl'>
                         <div className='col-start-1 col-end-2'>
