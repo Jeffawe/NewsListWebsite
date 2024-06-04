@@ -9,20 +9,18 @@ const news: NextPage = ({ articles, isLoading }: any) => {
     const [variable, setvariable] = useState(0)
 
 
-    // const router = useRouter()
+    const router = useRouter()
 
-    // useEffect(() => {
-    //     const articleData:any = (router.query.data);
-    //     const variable:any = (router.query.variable);
-    //     settheArticles(articleData);
-    //     setvariable(variable);
+    useEffect(() => {
+        const articleData:any = (router.query.data);
+        const variable:any = (router.query.variable);
+        settheArticles(articleData);
+        setvariable(variable);
 
-    //     return () => {
+        return () => {
 
-    //     }
-    // }, [])
-
-    // console.log(theArticles)
+        }
+    }, [])
 
 
     return (
