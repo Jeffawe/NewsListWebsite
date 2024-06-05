@@ -11,7 +11,7 @@ export type PropItems = {
   articles: [];
 }
 
-const alanKey = process.env.ALAN_KEY
+const alanKey = process.env.NEXT_PUBLIC_ALAN_KEY
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [articles, setarticles] = useState([]);
@@ -24,7 +24,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   }
 
   const getArticles = async (number:any, searchTerm:any) => {
-    const API_KEY = process.env.API_KEY
+    const API_KEY = process.env.NEXT_PUBLIC_API_KEY
     searchTerm = searchTerm.toString().toLowerCase().toString().split(" ").join('-');
     const BaseUrl =  `https://newsapi.org/v2/top-headlines?country=us&apiKey=${API_KEY}`
     let urlToUse = ` `
