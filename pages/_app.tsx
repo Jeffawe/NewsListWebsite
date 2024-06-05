@@ -4,13 +4,14 @@ import { Layout } from '../components'
 import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import axios from 'axios'
+import { url } from 'inspector'
 
 export type PropItems = {
   command: any;
   articles: [];
 }
 
-const alanKey = '2dc91ea71963dca449ce8cfa181664292e956eca572e1d8b807a3e2338fdd0dc/stage'
+const alanKey = process.env.NEXT_PUBLIC_ALAN_KEY
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [articles, setarticles] = useState([]);
@@ -23,33 +24,33 @@ function MyApp({ Component, pageProps }: AppProps) {
   }
 
   const getArticles = async (number:any, searchTerm:any) => {
-    const API_KEY = '8d97f58e35ffb22bbcc02fe3f8056582'
+    const API_KEY = process.env.NEXT_PUBLIC_API_KEY
     searchTerm = searchTerm.toString().toLowerCase().toString().split(" ").join('-');
-    const BaseUrl = 'http://api.mediastack.com/v1/news?languages=en&sort=popularity'
+    const BaseUrl =  `https://newsapi.org/v2/top-headlines?country=us&apiKey=${API_KEY}`
     let urlToUse = ` `
     switch(number) {
       case 1:
-        urlToUse =  `${BaseUrl}&access_key=${API_KEY}`
+        urlToUse =  `${BaseUrl}`
         break;
       case 2:
-        urlToUse = `${BaseUrl}&keywords=${searchTerm}&access_key=${API_KEY}`
+        urlToUse = `${BaseUrl}&q=${searchTerm}`
         break;
       case 3:
-        urlToUse = `${BaseUrl}&categories=${searchTerm}&access_key=${API_KEY}`
+        urlToUse = `${BaseUrl}&category=${searchTerm}`
         break;
       case 4:
-        urlToUse = `${BaseUrl}&sources=${searchTerm}&access_key=${API_KEY}`
+        urlToUse = `${BaseUrl}&sources=${searchTerm}`
         break;
       default:
-        urlToUse = `${BaseUrl}&access_key=${API_KEY}`
+        urlToUse = `${BaseUrl}`
     }
     
     axios(urlToUse)
     .then((response) => {
-      const { data } = response.data;
-      setarticles(data)
+      setarticles(response.data.articles)
       setisLoading(false)
-      console.log(data)
+      console.log(response.data.articles)
+      console.log(urlToUse)
     })
     .catch((error) => {
       console.log("Error Fetching Data");

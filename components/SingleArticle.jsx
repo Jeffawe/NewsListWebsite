@@ -1,17 +1,14 @@
 import React from 'react'
 import { CgProfile } from "react-icons/cg";
-import moment from 'moment'
-import Link from 'next/link'
-import Image from 'next/image'
-import Articles from './Articles';
+import moment from 'moment';
 
 const SingleArticle = ({ article }) => {
     return (
         <div className='w-full overflow-hidden'>
             <div className='block'>
-                {article.image &&
+                {article.urlToImage &&
                     <img
-                        src={article.image}
+                        src={article.urlToImage}
                         alt='Name'
                         className='h-auto w-full'
                         onError={event => {
@@ -21,9 +18,9 @@ const SingleArticle = ({ article }) => {
                     />
                 }
 
-                {!article.image &&
+                {!article.urlToImage &&
                     <img
-                        src={'https://media.istockphoto.com/photos/news-picture-id157399872'}
+                        src={'https://images.pexels.com/photos/518543/pexels-photo-518543.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'}
                         alt='Name'
                         className='h-auto'
                     />

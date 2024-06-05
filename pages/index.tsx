@@ -1,7 +1,5 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import Image from 'next/image'
-import { type } from 'os'
 import { useEffect, useState } from 'react'
 import { Navbar, HomePage, AlanAIPage, Categories, Footer } from '../components'
 import { useRouter } from 'next/router'
@@ -9,16 +7,6 @@ import { useRouter } from 'next/router'
 
 const Home: NextPage = ({ articles, onCategoryClick, getArticles }: any) => {
   const router = useRouter();
-
-
-
-  useEffect(() => {
-
-    return () => {
-      // this now gets called when the component unmounts
-    };
-  }, [])
-
 
   return (
     <div className="scroll-smooth relative">
